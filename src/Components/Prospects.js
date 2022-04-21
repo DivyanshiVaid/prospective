@@ -1,28 +1,16 @@
-// import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { deleteUserFromC2 } from "../Redux/Actions/prospectsAction";
+import { deleteUser, addUserInC2,clearProspects } from "../Redux/Actions/prospectsAction";
 
-const CTwo = ({ finalDetails, DeleteTheUser }) => {
+const Prospects = ({ DeleteUser, userData, AddUserInC2,ClearProspects }) => {
   const navigate = useNavigate();
-  // const [data, setData] = useState([]);
   const editUser = (id) => {
     navigate(`/edit/${id}`);
   };
-
-  // useEffect(() => {
-  //   console.log(finalDetails);
-  //   let addCtwo = [...data];
-  //     addCtwo.push(finalDetails);
-  //   // const updatedArray = [...finalDetails];
-  //   if (finalDetails) {
-  //     setData(finalDetails);
-  //   }
-  // }, [data]);
-
   return (
     <div>
-     <h4 className="shadow">C 2</h4>
+      <h4 className="shadow">Prospects</h4>
       <div>
         <table className="table table-primary table-striped">
           <thead>
@@ -31,13 +19,14 @@ const CTwo = ({ finalDetails, DeleteTheUser }) => {
               <th scope="col">Name</th>
               <th scope="col">Dob</th>
               <th scope="col">Country</th>
-              <th scope="col">Status</th>
+              <th scope="col">status</th>
               <th scope="col">Actions</th>
+            
             </tr>
           </thead>
           <tbody>
-            {finalDetails &&
-              finalDetails.map((el, index) => {
+            {userData &&
+              userData.map((el, index) => {
                 return (
                   <tr key={index}>
                     <th scope="row">{index + 1}</th>
@@ -49,6 +38,15 @@ const CTwo = ({ finalDetails, DeleteTheUser }) => {
                       <button
                         className="btn btn-primary me-2"
                         onClick={() => {
+                          AddUserInC2(el);
+                          ClearProspects(el)
+                        }}
+                      >
+                        Add to C2
+                      </button>
+                      <button
+                        className="btn btn-primary me-2"
+                        onClick={(e) => {
                           editUser(el.id);
                         }}
                       >
@@ -57,7 +55,7 @@ const CTwo = ({ finalDetails, DeleteTheUser }) => {
                       <button
                         className="btn btn-danger"
                         onClick={() => {
-                          DeleteTheUser(el.id);
+                          DeleteUser(el.id);
                         }}
                       >
                         Delete
@@ -74,13 +72,14 @@ const CTwo = ({ finalDetails, DeleteTheUser }) => {
 };
 const mapStateToProps = (state) => {
   return {
-    finalDetails: state.prospectsReducer.secondState,
+    userData: state.prospectsReducer.initialState,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    DeleteTheUser: (id) => dispatch(deleteUserFromC2(id)),
-
+    AddUserInC2: (data) => dispatch(addUserInC2(data)),
+    ClearProspects:(data)=>dispatch(clearProspects(data)),
+    DeleteUser: (id) => dispatch(deleteUser(id)),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(CTwo);
+export default connect(mapStateToProps, mapDispatchToProps)(Prospects);

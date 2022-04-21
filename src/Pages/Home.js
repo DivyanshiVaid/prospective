@@ -1,14 +1,33 @@
-import React from 'react'
-import CTwo from '../Components/CTwo'
-import Prospective from '../Components/Prospective'
+import React from "react";
+import CTwo from "../Components/CTwo";
+import Prospects from "../Components/Prospects";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <div>
-        <Prospective/>
-        <CTwo/>
-    </div>
-  )
-}
+      <div className="row m-5">
+        <h3 className="col-sm-8"> Add a new User!!!</h3>
+        <div className="col-sm-4">
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              navigate("/form");
+            }}
+          >
+            Add
+          </button>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-sm-6" ><Prospects /></div>
+        <div  className="col-sm-6">  <CTwo /></div>
 
-export default Home
+      </div>
+      
+    
+    </div>
+  );
+};
+export default Home;

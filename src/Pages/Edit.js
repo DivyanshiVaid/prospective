@@ -1,19 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormGroup, Button, Label, Input } from "reactstrap";
-import { useNavigate } from "react-router-dom";
-import { addUser } from "../Redux/Actions/prospectsAction";
+import { useNavigate, useParams } from "react-router-dom";
+import { editUser } from "../Redux/Actions/prospectsAction";
 import { connect } from "react-redux";
 
-const Form = ({AddUser,Data}) => {
+const Form = ({ EditUser, ProspectsData,CTwoData }) => {
+  const { id } = useParams();
   const navigate = useNavigate();
-  const [User, setUser] = useState({
-    id: new Date().getTime()+"",
-    name: "",
-    dob: "",
-    country: "",
-  });
+  const [User, setUser] = useState(
+    {
+      id: new Date().getTime()+"",
+      name: "abc",
+      dob: " 01-01-2000",
+      country: "India",
+      status: false,
+    }
+  );
 
-  const [error, setError] = useState({
+  useEffect(()=>{
+    console.log("id",id)
+    console.log("ProspectsData",ProspectsData)
+    console.log("CTwoData",CTwoData)
+    if(CTwoData.length>0){
+
+      var result = CTwoData.filter(obj => {
+        return obj.id === id
+      })
+      debugger
+      setUser(result[0])
+      console.log("result",result)
+    }
+    else{
+      var result = ProspectsData.filter(obj => {
+        return obj.id === id
+      })
+      debugger
+      setUser(result[0])
+      console.log("result",result)
+    }
+
+    // CTwoData?CTwoData:ProspectsData.find((element) => (element.id) === (id))
+
+  },[id])
+    const [error, setError] = useState({
     errorName: "",
     errorDob: "",
   });
@@ -34,19 +63,21 @@ const Form = ({AddUser,Data}) => {
     }
     return true;
   };
-
-  // id:new Date().getTime()+"" id:Data.length+1
-  const onInputChange = (e) => {
-    setUser({ ...User, [e.target.name]: e.target.value });
+  const userDetails = (e) => {
+    setUser({
+      ...User,
+      id: User.id,
+      [e.target.name]: e.target.value,
+    });
   };
   const handleSubmit = (e) => {
     e.preventDefault(e);
     if (validation()) {
-      User.status=false;
-      AddUser(User)
+      EditUser(User);
       navigate("/");
     }
   };
+  console.log(User);
   return (
     <div className=" d-flex justify-content-center m-5">
       <form
@@ -61,7 +92,7 @@ const Form = ({AddUser,Data}) => {
             placeholder="Name"
             type="text"
             onChange={(e) => {
-              onInputChange(e);
+              userDetails(e);
               setError({ ...error, errorName: "" });
             }}
           />
@@ -76,7 +107,7 @@ const Form = ({AddUser,Data}) => {
             type="text"
             value={User.dob}
             onChange={(e) => {
-              onInputChange(e);
+              userDetails(e);
               setError({ ...error, errorDob: "" });
             }}
           />
@@ -91,28 +122,27 @@ const Form = ({AddUser,Data}) => {
             type="text"
             value={User.country}
             onChange={(e) => {
-              onInputChange(e);
+              userDetails(e);
               setError({ ...error, errorName: "" });
             }}
           />
           <Label for="exampleEmail">Country</Label>
         </FormGroup>
         <span style={{ color: "red" }}>{error.errorName}</span>
-        <Button type="submit">
-          Submit
-        </Button>
+        <Button type="submit">Submit</Button>
       </form>
     </div>
   );
 };
 const mapStateToProps = (state) => {
   return {
-    Data:state.prospectsReducer.initialState
-  }
-}
+    ProspectsData: state.prospectsReducer.initialState,
+    CTwoData:state.prospectsReducer.secondState
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
-    AddUser: (data) => dispatch(addUser(data)),
+    EditUser: (data) => dispatch(editUser(data)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
