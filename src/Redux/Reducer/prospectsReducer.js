@@ -6,7 +6,6 @@ const initial = {
       name: "abc",
       dob: " 01-01-2000",
       country: "India",
-      status: false,
     },
   ],
   secondState: [],
@@ -20,9 +19,14 @@ export const prospectsReducer = (state = initial, action) => {
       return state;
     }
     case actiontypes.DELETE_USER: {
-      let deleted = state.initialState.filter((elem) => elem.id !== action.del);
-      state = deleted;
-      return state;
+      let deletedState=[...state.initialState]
+      let deleted = deletedState.filter((elem) => elem.id !== action.del);
+      // state = deleted;
+      // return state;
+      return {
+        ...state,
+        initialState: deleted,
+      };
     }
     case actiontypes.EDIT_USER: {
       const updated = state.initialState.map((el) =>
@@ -33,9 +37,9 @@ export const prospectsReducer = (state = initial, action) => {
     }
 
     case actiontypes.CLEAR_PROSPECTS: {
-      console.log("gggggggggg",action.payload)
+     
       let deleted = state.initialState.filter((elem) => elem.id !== action.payload.id);
-      console.log("deleted",deleted)
+   
       return {
         ...state,
         initialState: deleted,
@@ -58,11 +62,14 @@ export const prospectsReducer = (state = initial, action) => {
     }
 
     case actiontypes.DELETE_USER_FROM_C2: {
-      let deleted = state.secondState.filter(
-        (elem) => elem.id !== action.payload.id
+      let deletedState=[...state.secondState]
+      let deleted = deletedState.filter(
+        (elem) => elem.id !== action.payload
       );
-      state = deleted;
-      return state;
+      return {
+        ...state,
+        secondState: deleted,
+      };
     }
 
     default:

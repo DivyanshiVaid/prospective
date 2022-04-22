@@ -19,14 +19,9 @@ const Home = () => {
             Add
           </button>
         </div>
-      </div>
-      <div className="row">
-        <div className="col-sm-6" ><Prospects /></div>
-        <div  className="col-sm-6">  <CTwo /></div>
-
-      </div>
-      
-    
+      </div> 
+        <div  ><Prospects /></div>
+        <div  >  <CTwo /></div>
     </div>
   );
 };

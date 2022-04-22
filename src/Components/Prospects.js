@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteUser, addUserInC2,clearProspects } from "../Redux/Actions/prospectsAction";
@@ -6,8 +6,9 @@ import { deleteUser, addUserInC2,clearProspects } from "../Redux/Actions/prospec
 const Prospects = ({ DeleteUser, userData, AddUserInC2,ClearProspects }) => {
   const navigate = useNavigate();
   const editUser = (id) => {
-    navigate(`/edit/${id}`);
+    navigate(`/editprospects/${id}`);
   };
+
   return (
     <div>
       <h4 className="shadow">Prospects</h4>
@@ -20,8 +21,7 @@ const Prospects = ({ DeleteUser, userData, AddUserInC2,ClearProspects }) => {
               <th scope="col">Dob</th>
               <th scope="col">Country</th>
               <th scope="col">status</th>
-              <th scope="col">Actions</th>
-            
+              <th scope="col">Actions</th>            
             </tr>
           </thead>
           <tbody>
@@ -33,7 +33,8 @@ const Prospects = ({ DeleteUser, userData, AddUserInC2,ClearProspects }) => {
                     <td>{el.name}</td>
                     <td>{el.dob}</td>
                     <td>{el.country}</td>
-                    <td>{el.status===true? "active":"inactive"}</td>
+                    {/* <td><button onClick={(e)=>{}{el.status===true? "active":"inactive"}</button></td> */}
+                    {/* <td>{el.status===true? "active":"inactive"}</td> */}
                     <td>
                       <button
                         className="btn btn-primary me-2"

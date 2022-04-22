@@ -5,21 +5,9 @@ import { deleteUserFromC2 } from "../Redux/Actions/prospectsAction";
 
 const CTwo = ({ finalDetails, DeleteTheUser }) => {
   const navigate = useNavigate();
-  // const [data, setData] = useState([]);
   const editUser = (id) => {
-    navigate(`/edit/${id}`);
+    navigate(`/editc2/${id}`);
   };
-
-  // useEffect(() => {
-  //   console.log(finalDetails);
-  //   let addCtwo = [...data];
-  //     addCtwo.push(finalDetails);
-  //   // const updatedArray = [...finalDetails];
-  //   if (finalDetails) {
-  //     setData(finalDetails);
-  //   }
-  // }, [data]);
-
   return (
     <div>
      <h4 className="shadow">C 2</h4>
@@ -84,3 +72,16 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CTwo);
+
+
+
+
+  // useEffect(() => {
+  //   console.log(finalDetails);
+  //   let addCtwo = [...data];
+  //     addCtwo.push(finalDetails);
+  //   // const updatedArray = [...finalDetails];
+  //   if (finalDetails) {
+  //     setData(finalDetails);
+  //   }
+  // }, [data]);

@@ -7,6 +7,7 @@ export const EDIT_USER_IN_C2="EDIT_USER_IN_C2"
 export const DELETE_USER_FROM_C2=" DELETE_USER_FROM_C2"
 export const CLEAR_PROSPECTS="CLEAR_PROSPECTS"
 
+
 export const clearProspects=(payload)=>{
     return{
         type:"CLEAR_PROSPECTS",
