@@ -4,48 +4,19 @@ import { useNavigate, useParams } from "react-router-dom";
 import { editUser } from "../Redux/Actions/prospectsAction";
 import { connect } from "react-redux";
 
-const EditProspects = ({ EditUser, ProspectsData,C2Edit }) => {
+const EditProspects = ({ EditUser, ProspectsData }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [user, setUser] = useState(ProspectsData.find((element) => (element.id) === (id))
-    // {
-    //   id: new Date().getTime()+"",
-    //   name: "abc",
-    //   dob: " 01-01-2000",
-    //   country: "India",
-    //   status: false,
-    // }
   );
 
   useEffect(() => {
-    // console.log("id", id)
-    // console.log("ProspectsData", ProspectsData)
-    // console.log("CTwoData", CTwoData)
-    // if (CTwoData.length > 0) {
-    //   let result = CTwoData.filter(obj => {
-    //     return obj.id === id
-    //   })
-    //   setUser(result[0])
- 
-      // console.log("result", result)
-    // }
-    // else {
-    //   let resultC2 = ProspectsData.filter(obj => {
-    //     return obj.id === id
-    //   })
-    //   setUser(resultC2[0])  }
-
       if(ProspectsData.length>0) {
         let resultC2 = ProspectsData.filter(obj => {
           return obj.id === id
         })
         setUser(resultC2[0])
       }
-      // console.log("result", resultC2)
-  
-
-    // CTwoData?CTwoData:ProspectsData.find((element) => (element.id) === (id))
-
   }, [id])
   const [error, setError] = useState({
     errorName: "",
@@ -77,19 +48,11 @@ const EditProspects = ({ EditUser, ProspectsData,C2Edit }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault(e);
-    if (validation()) {
-      // if(!ProspectsData){
-      //   C2Edit(user) 
-      // }else{
-      //   EditUser(user)
-      // }
-    //  ProspectsData.length? EditUser(User):C2Edit(User) 
+    if (validation()) {   
     EditUser(user)
-    // C2Edit(user) 
       navigate("/");
     }
   };
-  // console.log(User);
   return (
     <div className=" d-flex justify-content-center m-5">
       <form
@@ -149,13 +112,11 @@ const EditProspects = ({ EditUser, ProspectsData,C2Edit }) => {
 const mapStateToProps = (state) => {
   return {
     ProspectsData: state.prospectsReducer.initialState,
-    // CTwoData: state.prospectsReducer.secondState
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     EditUser: (data) => dispatch(editUser(data)),
-    // C2Edit:(data)=>dispatch(editUserInC2(data))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(EditProspects);

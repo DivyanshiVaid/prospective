@@ -2,4 +2,15 @@
   text-align: center;
 }
 
+.form{
+  height: 100vh;
+  background: #bed6ee;
+}
+.header{
+  background: #bed6ee;
+}
+.image{
+  height: auto;
+  width: 100%;
+}
 

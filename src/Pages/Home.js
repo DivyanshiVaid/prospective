@@ -7,11 +7,11 @@ const Home = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <div className="row m-5">
-        <h3 className="col-sm-8"> Add a new User!!!</h3>
-        <div className="col-sm-4">
+      <div className="navbar p-3 mb-2 rounded header">
+        <h3 className=""> Add a new User!!!</h3>
+        <div className="">
           <button
-            className="btn btn-primary"
+            className="btn btn-outline-primary"
             onClick={() => {
               navigate("/form");
             }}
@@ -19,9 +19,18 @@ const Home = () => {
             Add
           </button>
         </div>
-      </div> 
-        <div  ><Prospects /></div>
-        <div  >  <CTwo /></div>
+      </div>
+      <div className="container">
+        <div className="row">
+          <div className="shadow p-3 mb-5 rounded">
+            <Prospects />
+          </div>
+          <hr />
+          <div className="shadow p-3 mb-3 rounded3" >
+            <CTwo />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

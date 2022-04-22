@@ -4,13 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { addUser } from "../Redux/Actions/prospectsAction";
 import { connect } from "react-redux";
 
-const Form = ({AddUser,Data}) => {
+const Form = ({AddUser}) => {
   const navigate = useNavigate();
   const [user, setUser] = useState({
     id: new Date().getTime()+"",
     name: "",
     dob: "",
     country: "",
+    status:false
   });
 
   const [error, setError] = useState({
@@ -40,17 +41,19 @@ const Form = ({AddUser,Data}) => {
   const handleSubmit = (e) => {
     e.preventDefault(e);
     if (validation()) {
-      user.status=false;
+      user.status=true;
       AddUser(user)
       navigate("/");
     }
   };
   return (
-    <div className=" d-flex justify-content-center m-5">
+    <div className="form">
+    <div className=" d-flex justify-content-center p-5">
       <form
-        className="card w-50 p-3 border rounded align-center"
+        className="card p-3 border rounded-3 shadow align-center"
         onSubmit={handleSubmit}
       >
+        <h4>Add User</h4>
         <FormGroup floating>
           <Input
             id="exampleEmail"
@@ -101,16 +104,13 @@ const Form = ({AddUser,Data}) => {
         </Button>
       </form>
     </div>
+    </div>
+
   );
 };
-const mapStateToProps = (state) => {
-  return {
-    Data:state.prospectsReducer.initialState
-  }
-}
 const mapDispatchToProps = (dispatch) => {
   return {
     AddUser: (data) => dispatch(addUser(data)),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default connect(null, mapDispatchToProps)(Form);
